@@ -4119,6 +4119,10 @@ sint xmitframe_enqueue_for_sleeping_sta(_adapter *padapter, struct xmit_frame *p
 		return false;
 	}
 
+	/* never buffer unicast frames for "sleeping" stations, see rtw_ap_ignore_ps */
+	if (rtw_ap_ignore_ps && !bmcst)
+		return false;
+
 	if (pattrib->triggered == 1) {
 		DBG_COUNTER(padapter->tx_logs.core_tx_ap_enqueue_warn_trigger);
 		/* RTW_INFO("directly xmit pspoll_triggered packet\n"); */

@@ -817,7 +817,12 @@ void process_pwrbit_data(_adapter *padapter, union recv_frame *precv_frame)
 	pwrbit = GetPwrMgt(ptr);
 
 	if (psta) {
-		if (pwrbit) {
+		if (rtw_ap_ignore_ps) {
+			/* treat the station as always awake; flush anything queued
+			 * before the option was enabled */
+			if (psta->state & WIFI_SLEEP_STATE)
+				wakeup_sta_to_xmit(padapter, psta);
+		} else if (pwrbit) {
 			if (!(psta->state & WIFI_SLEEP_STATE)) {
 				/* psta->state |= WIFI_SLEEP_STATE; */
 				/* pstapriv->sta_dz_bitmap |= BIT(psta->aid); */

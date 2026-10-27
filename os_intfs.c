@@ -47,6 +47,16 @@ static int rtw_soft_ap = 0;
 module_param(rtw_ips_mode, int, 0644);
 MODULE_PARM_DESC(rtw_ips_mode, "The default IPS mode");
 
+/*
+ * AP mode: ignore the power-management bit sent by associated stations and
+ * never buffer unicast frames for them. Works around clients (e.g. laptops
+ * in power save) that never fetch buffered frames, which stalls traffic
+ * until the client sends something itself. Can be changed at runtime.
+ */
+int rtw_ap_ignore_ps = 1;
+module_param(rtw_ap_ignore_ps, int, 0644);
+MODULE_PARM_DESC(rtw_ap_ignore_ps, "AP mode: 1 = never buffer frames for power-saving stations (default), 0 = standard 802.11 PS buffering");
+
 static int rtw_smart_ps = 2;
 
 static int rtw_check_fw_ps = 1;

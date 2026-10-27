@@ -641,6 +641,7 @@ bool xmitframe_hiq_filter(struct xmit_frame *xmitframe);
 sint xmitframe_enqueue_for_sleeping_sta(_adapter *padapter, struct xmit_frame *pxmitframe);
 void stop_sta_xmit(_adapter *padapter, struct sta_info *psta);
 void wakeup_sta_to_xmit(_adapter *padapter, struct sta_info *psta);
+extern int rtw_ap_ignore_ps; /* module param, see os_intfs.c */
 void xmit_delivery_enabled_frames(_adapter *padapter, struct sta_info *psta);
 #endif
 
